@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* 1. TAILWIND v4 CONFIG */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-deep-navy: #020617;
+  --color-soft-white: #f8fafc;
+  --color-pure-black: #000000;
+  --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-duration: 400ms;
+}
+
+/* 2. GLOBAL DEFAULTS */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevents fixed navbar from covering headings when clicking links */
+section {
+  scroll-margin-top: 100px; 
+}
+
+body {
+  /* We remove the !important here so the JS toggle can actually change colors */
+  min-height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* 3. CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  /* Adapts to theme */
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e40af; /* Deep Blue */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6; /* Bright Blue */
+}
+
+/* 4. UTILITIES */
+/* Optional: Hide scrollbar for the Certificate Modal while keeping functionality */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
