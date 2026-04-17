@@ -42,7 +42,6 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-white dark:bg-black text-slate-900 dark:text-white transition-colors duration-500 selection:bg-blue-500/30">
       
-      {/* 1. NAVIGATION */}
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-slate-200 dark:border-white/10 px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-6 text-xs md:text-sm font-medium whitespace-nowrap">
         <a href="#home" className="hover:text-blue-500 transition-colors">Home</a>
         <a href="#projects" className="hover:text-blue-500 transition-colors">Projects</a>
@@ -59,7 +58,6 @@ export default function Home() {
         </button>
       </nav>
 
-      {/* 2. HERO SECTION */}
       <section id="home" className="min-h-dvh flex flex-col justify-center items-center px-6 pt-20 relative overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-80 md:w-125 h-80 md:h-125 bg-blue-500/10 dark:bg-blue-600/10 blur-[100px] md:blur-[120px] rounded-full -z-10" />
 
@@ -103,7 +101,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3. PROJECTS SECTION */}
       <section id="projects" className="py-24 px-6 max-w-7xl mx-auto relative">
         <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ y: [-10, 0] }} viewport={{ once: true, amount: 0.1 }} className="mb-16 z-10 relative">
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Featured Work</h2>
@@ -147,7 +144,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. STACKS SECTION */}
       <section id="stacks" className="py-24 px-6 bg-slate-50 dark:bg-white/[0.02] border-y border-slate-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-12">Technical Stacks</h2>
@@ -159,7 +155,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. CERTIFICATES SECTION */}
       <section id="certificates" className="py-24 px-6 max-w-7xl mx-auto relative">
         <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ y: [-10, 0] }} viewport={{ once: true, amount: 0.1 }} className="mb-16 z-10 relative">
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Certificates</h2>
@@ -191,7 +186,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* POPUP MODAL */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
@@ -229,7 +223,6 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* 6. CONTACT ME */}
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div 

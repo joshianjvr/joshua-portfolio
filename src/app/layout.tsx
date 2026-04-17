@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Joshua Javier | Backend Developer",
   description: "Web Developer specializing in server-side logic and database architecture.",
-  // These tags make your link look great when shared on social media
+
   openGraph: {
     title: "Joshua Javier | Portfolio",
     description: "Architecting high-performance backends and complex inventory systems.",
-    url: "https://your-portfolio-link.vercel.app", // Update this after you deploy!
+    url: "https://joshua-portfolio-zeta-six.vercel.app/",
     siteName: "Joshua Javier Portfolio",
     images: [
       {
-        url: "/og-image.jpg", // A screenshot of your site (1200x630) in /public
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Joshua Javier Portfolio Preview",
