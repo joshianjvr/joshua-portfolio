@@ -2,18 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, ChevronRight, Award, ExternalLink, X, GraduationCap, Sun, Moon } from "lucide-react";
+import { Mail, ChevronRight, Award, X, GraduationCap, Sun, Moon, ChevronLeft, ExternalLink, Clock } from "lucide-react";
 
 const GithubIcon = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
 );
 
 const LinkedinIcon = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
 );
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
@@ -24,24 +26,64 @@ export default function Home() {
     }
   }, [theme]);
 
-  const allCertificates = [
-    { title: "Full-Stack Web Development", issuer: "Udemy", date: "2025", image: "/certificates/cert1.jpg" },
-    { title: "Database Management (SQL)", issuer: "Coursera", date: "2024", image: "/certificates/cert2.jpg" },
-    { title: "Advanced PHP Architect", issuer: "LinkedIn Learning", date: "2025", image: "/certificates/cert3.jpg" },
-    { title: "Cybersecurity Essentials", issuer: "Cisco", date: "2024", image: "/certificates/cert4.jpg" },
-    { title: "Responsive Design Foundations", issuer: "FreeCodeCamp", date: "2023", image: "/certificates/cert5.jpg" },
-    { title: "Cloud Practitioner", issuer: "AWS", date: "2025", image: "/certificates/cert6.jpg" },
-    { title: "Modern JavaScript (ES6+)", issuer: "Udemy", date: "2024", image: "/certificates/cert7.jpg" },
-    { title: "Back-End Performance", issuer: "Google", date: "2025", image: "/certificates/cert8.jpg" },
-    { title: "Git & Version Control", issuer: "Pluralsight", date: "2024", image: "/certificates/cert9.jpg" },
-    { title: "Laravel Framework Deep Dive", issuer: "Laracasts", date: "2025", image: "/certificates/cert10.jpg" },
-    { title: "Data Structures & Algorithms", issuer: "Coursera", date: "2024", image: "/certificates/cert11.jpg" },
-    { title: "System Security Certified", issuer: "ISC2", date: "2025", image: "/certificates/cert12.jpg" },
+  const projects = [
+    {
+      id: 1,
+      title: "Student Portal System",
+      tag: "Capstone • PHP / MySQL",
+      description: "Comprehensive management platform for DWCV featuring automated grade tracking and secure enrollment.",
+      longDescription: "Built specifically for Divine Word College of Vigan, this system handles sensitive student data, automated grade computation, and real-time synchronization between departments.",
+      images: ["/projects/portal-1.jpg", "/projects/portal-2.jpg", "/projects/portal-3.jpg"],
+      colSpan: "md:col-span-8",
+      isDarkAccent: false
+    },
+    {
+      id: 2,
+      title: "Inventory Tracker",
+      tag: "Optimized CRUD",
+      description: "Automated stock management with reorder logic and movement history.",
+      longDescription: "A high-performance backend solution for businesses to track inventory levels, generate low-stock alerts, and manage supplier orders.",
+      images: ["/projects/inv-1.jpg", "/projects/inv-2.jpg"],
+      colSpan: "md:col-span-4",
+      isDarkAccent: false
+    },
+    {
+      id: 3,
+      title: "Payroll Management",
+      tag: "Backend Logic",
+      description: "Complex logic for tax deductions, disbursements, and employee salary processing.",
+      longDescription: "An automated payroll engine that calculates government deductions (SSS, Pag-IBIG, PhilHealth) and generates digital payslips.",
+      images: ["/projects/payroll-1.jpg", "/projects/payroll-2.jpg"],
+      colSpan: "md:col-span-5",
+      isDarkAccent: false
+    },
+    {
+      id: 4,
+      title: "AI Content Orchestrator",
+      tag: "Ongoing Project",
+      description: "Automating video scripting and asset generation for scalable YouTube automation.",
+      longDescription: "Integrating OpenAI and video processing libraries to fully automate the production of educational video content.",
+      images: ["/projects/ai-1.jpg", "/projects/ai-2.jpg"],
+      colSpan: "md:col-span-7",
+      isDarkAccent: true
+    }
   ];
+
+  const allCertificates = [
+    { title: "Responsive Web Design Certification", issuer: "freeCodeCamp", date: "Ongoing", image: "/certificates/cert1.jpg", isOngoing: true },
+    { title: "Microsoft Artificial Intelligence Course: Azure AI Fundamentals", issuer: "Microsoft", date: "2025", image: "/certificates/cert2.jpg" },
+    { title: "Setting Up Computer Servers", issuer: "Technical Training", date: "2025", image: "/certificates/cert3.jpg" },
+    { title: "Setting Up Computer Networks", issuer: "Technical Training", date: "2025", image: "/certificates/cert4.jpg" },
+    { title: "Maintaining Computer Systems and Networks", issuer: "Technical Training", date: "2025", image: "/certificates/cert5.jpg" },
+    { title: "Intro to CSS", issuer: "Udemy", date: "2025", image: "/certificates/cert6.jpg" },
+  ];
+
+  const nextImg = () => setCurrentImgIndex((prev) => (prev + 1) % selectedProject.images.length);
+  const prevImg = () => setCurrentImgIndex((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length);
 
   return (
     <main className="relative min-h-screen bg-white dark:bg-black text-slate-900 dark:text-white transition-colors duration-500 selection:bg-blue-500/30">
-      
+
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-white/60 dark:bg-black/40 backdrop-blur-xl border border-slate-200 dark:border-white/10 px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-6 text-xs md:text-sm font-medium whitespace-nowrap">
         <a href="#home" className="hover:text-blue-500 transition-colors">Home</a>
         <a href="#projects" className="hover:text-blue-500 transition-colors">Projects</a>
@@ -49,7 +91,7 @@ export default function Home() {
         <a href="#certificates" className="hover:text-blue-500 transition-colors">Certificates</a>
         <a href="#contact" className="hover:text-blue-500 transition-colors">Contact</a>
         <div className="w-[1px] h-4 bg-slate-300 dark:bg-white/20 ml-2" />
-        <button 
+        <button
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           aria-label="Toggle Light and Dark Mode"
           className="p-1 hover:text-blue-500 transition-colors"
@@ -64,11 +106,7 @@ export default function Home() {
         <motion.div initial={{ opacity: 1, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center z-10">
           <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2 }} className="mb-8 relative inline-block">
             <div className="absolute inset-0 bg-blue-500/20 blur-3xl rounded-full" />
-            <img 
-              src="/profile.jpg" 
-              alt="Joshua Javier Professional Portrait" 
-              className="relative w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-2 border-slate-200 dark:border-white/20 p-1.5 bg-white dark:bg-black shadow-2xl" 
-            />
+            <img src="/profile.jpg" alt="Joshua Javier Professional Portrait" className="relative w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border-2 border-slate-200 dark:border-white/20 p-1.5 bg-white dark:bg-black shadow-2xl" />
           </motion.div>
           <br />
           <span className="inline-block px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-[10px] md:text-xs font-mono tracking-widest text-blue-600 dark:text-blue-400 mb-6 uppercase">Web Developer</span>
@@ -78,25 +116,11 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a href="#projects" className="w-full sm:w-auto bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-blue-600 dark:hover:bg-blue-400 transition-all active:scale-95">View My Projects <ChevronRight size={18} /></a>
-            <a href="/JOSHUA JAVIER RESUME.pdf" download className="w-full sm:w-auto bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-all active:scale-95">Download CV</a>
+            <a href="/my-cv.pdf" download className="w-full sm:w-auto bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-all active:scale-95">Download CV</a>
           </div>
           <div className="flex justify-center gap-6 mt-10">
-            <a 
-              href="https://github.com/joshianjvr/joshjvr" 
-              target="_blank" 
-              aria-label="Visit Joshua's GitHub Profile"
-              className="text-slate-400 dark:text-white/40 hover:text-blue-500 transition-colors"
-            >
-              <GithubIcon size={24} />
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/joshua-javier-178a82350/" 
-              target="_blank" 
-              aria-label="Visit Joshua's LinkedIn Profile"
-              className="text-slate-400 dark:text-white/40 hover:text-blue-500 transition-colors"
-            >
-              <LinkedinIcon size={24} />
-            </a>
+            <a href="https://github.com/joshianjvr/joshjvr" target="_blank" aria-label="Visit Joshua's GitHub Profile" className="text-slate-400 dark:text-white/40 hover:text-blue-500 transition-colors"><GithubIcon size={24} /></a>
+            <a href="https://www.linkedin.com/in/joshua-javier-178a82350/" target="_blank" aria-label="Visit Joshua's LinkedIn Profile" className="text-slate-400 dark:text-white/40 hover:text-blue-500 transition-colors"><LinkedinIcon size={24} /></a>
           </div>
         </motion.div>
       </section>
@@ -106,44 +130,22 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Featured Work</h2>
           <div className="h-1 w-20 bg-blue-500 rounded-full" />
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
-          <motion.div whileHover={{ y: -5 }} className="md:col-span-8 group relative overflow-hidden rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-6 md:p-10 hover:border-blue-500/50 transition-all shadow-sm">
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-400/30 bg-blue-50 dark:bg-blue-400/5 mb-4 inline-block uppercase tracking-wider">Capstone • PHP / MySQL</span>
-              <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">Student Portal System</h3>
-              <p className="text-slate-500 dark:text-gray-400 text-sm md:text-base max-w-md mb-6 leading-relaxed">Comprehensive management platform for DWCV. Features automated grade tracking, secure enrollment logic, and real-time data synchronization.</p>
-            </div>
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 blur-[100px] -z-10" />
-          </motion.div>
-
-          <motion.div whileHover={{ y: -5 }} className="md:col-span-4 group rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-8 hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-sm">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Inventory Tracker</h3>
-            <p className="text-slate-500 dark:text-gray-400 text-xs leading-relaxed">Automated stock management with reorder logic and movement history.</p>
-            <span className="text-[10px] font-mono text-blue-600 dark:text-blue-500/60 uppercase mt-4">Optimized CRUD</span>
-          </motion.div>
-
-          <motion.div whileHover={{ y: -5 }} className="md:col-span-5 group rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 p-8 hover:border-blue-500/30 transition-all shadow-sm">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Payroll Management</h3>
-            <p className="text-slate-500 dark:text-gray-400 text-xs leading-relaxed">Complex backend logic for tax deductions, disbursements, and employee salary processing.</p>
-          </motion.div>
-
-          <motion.div 
-            whileHover={{ y: -5 }} 
-            className="md:col-span-7 group relative overflow-hidden rounded-3xl bg-slate-900 dark:bg-white/5 border border-slate-800 dark:border-white/10 p-8 shadow-xl transition-all"
-          >
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono text-blue-400 uppercase tracking-widest block mb-2">Ongoing Project</span>
-              <h3 className="text-2xl font-bold text-white mb-2">AI Content Orchestrator</h3>
-              <p className="text-gray-400 text-xs md:text-sm max-w-xs leading-relaxed">
-                Automating video scripting and asset generation for scalable YouTube automation projects.
-              </p>
-            </div>
-            <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-transparent pointer-events-none" />
-          </motion.div>
+          {projects.map((project) => (
+            <motion.div key={project.id} whileHover={{ y: -5 }} onClick={() => { setSelectedProject(project); setCurrentImgIndex(0); }} className={`${project.colSpan} group relative overflow-hidden rounded-3xl border p-6 md:p-10 transition-all shadow-sm cursor-pointer ${project.isDarkAccent ? "bg-slate-900 dark:bg-white/5 border-slate-800 dark:border-white/10 shadow-xl" : "bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-blue-500/50"}`}>
+              <div className="relative z-10">
+                <span className={`text-[10px] font-mono px-3 py-1 rounded-full border mb-4 inline-block uppercase tracking-wider ${project.isDarkAccent ? "text-blue-400 border-blue-400/30 bg-blue-400/5" : "text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-400/30 bg-blue-50 dark:bg-blue-400/5"}`}>{project.tag}</span>
+                <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${project.isDarkAccent ? "text-white" : "text-slate-900 dark:text-white"}`}>{project.title}</h3>
+                <p className={`text-sm md:text-base max-w-md leading-relaxed ${project.isDarkAccent ? "text-gray-400" : "text-slate-500 dark:text-gray-400"}`}>{project.description}</p>
+              </div>
+              {project.isDarkAccent && <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-transparent pointer-events-none" />}
+              {!project.isDarkAccent && <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 blur-[100px] -z-10" />}
+            </motion.div>
+          ))}
         </div>
       </section>
 
+      {/* 4. TECHNICAL STACKS SECTION */}
       <section id="stacks" className="py-24 px-6 bg-slate-50 dark:bg-white/[0.02] border-y border-slate-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-12">Technical Stacks</h2>
@@ -155,59 +157,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 5. OTHER SKILLS SECTION */}
+      <section id="other-skills" className="py-24 px-6 bg-white dark:bg-black border-b border-slate-200 dark:border-white/5">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-12">Other Skills</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6">
+            {["Photoshop", "InDesign", "CapCut", "Figma"].map((skill) => (
+              <div key={skill} className="p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-white/[0.01] shadow-sm flex items-center justify-center transition-all text-[10px] md:text-xs font-bold text-slate-400 hover:text-blue-600 dark:hover:text-white uppercase tracking-widest">{skill}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="certificates" className="py-24 px-6 max-w-7xl mx-auto relative">
         <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ y: [-10, 0] }} viewport={{ once: true, amount: 0.1 }} className="mb-16 z-10 relative">
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">Certificates</h2>
           <div className="h-1 w-20 bg-blue-500 rounded-full" />
         </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {allCertificates.slice(0, 5).map((cert, index) => (
-            <motion.div 
-              key={index}
-              whileHover={{ y: -5 }}
-              onClick={() => window.open(cert.image, '_blank')}
-              className="p-6 md:p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-blue-500/30 transition-all group cursor-pointer relative shadow-sm"
-            >
-              <Award className="text-blue-600 dark:text-blue-400 mb-4" size={24} />
-              <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-white mb-1 leading-tight">{cert.title}</h3>
-              <p className="text-slate-500 dark:text-gray-500 text-[10px] md:text-xs">{cert.issuer}</p>
+            <motion.div key={index} whileHover={{ y: -5 }} onClick={() => window.open(cert.image, '_blank')} className="p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-blue-500/30 transition-all group cursor-pointer relative shadow-sm overflow-hidden">
+              {cert.isOngoing && (
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                  <Clock size={12} className="animate-pulse" /> Ongoing
+                </div>
+              )}
+              <Award className="text-blue-600 dark:text-blue-400 mb-6" size={32} />
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight">{cert.title}</h3>
+              <p className="text-slate-500 dark:text-gray-500 text-xs">{cert.issuer} • {cert.date}</p>
             </motion.div>
           ))}
-
-          <motion.div 
-            whileHover={{ scale: 0.98 }}
-            onClick={() => setIsModalOpen(true)}
-            className="p-6 md:p-8 rounded-3xl bg-blue-50 dark:bg-blue-600/10 border border-blue-200 dark:border-blue-500/40 flex flex-col items-center justify-center gap-3 cursor-pointer group transition-all"
-          >
-            <div className="w-12 h-12 rounded-full bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform"><GraduationCap size={24} /></div>
-            <span className="text-xs md:text-sm font-bold text-blue-600 dark:text-white uppercase tracking-widest text-center">See All (12)</span>
+          <motion.div whileHover={{ scale: 0.98 }} onClick={() => setIsCertModalOpen(true)} className="p-8 rounded-3xl bg-blue-50 dark:bg-blue-600/10 border border-blue-200 dark:border-blue-500/40 flex flex-col items-center justify-center gap-4 cursor-pointer group transition-all">
+            <div className="w-16 h-16 rounded-full bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white group-hover:scale-110 transition-transform"><GraduationCap size={32} /></div>
+            <span className="text-sm font-bold text-blue-600 dark:text-white uppercase tracking-widest text-center">See All ({allCertificates.length})</span>
           </motion.div>
         </div>
       </section>
 
       <AnimatePresence>
-        {isModalOpen && (
+        {isCertModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsModalOpen(false)} className="absolute inset-0 bg-white/90 dark:bg-black/90 backdrop-blur-md" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsCertModalOpen(false)} className="absolute inset-0 bg-white/90 dark:bg-black/90 backdrop-blur-md" />
             <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative w-full max-w-4xl max-h-[85vh] bg-white dark:bg-[#0A0A0A] border border-slate-200 dark:border-white/10 rounded-[2.5rem] p-6 md:p-10 flex flex-col shadow-2xl">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-white">All Certifications</h2>
-                <button 
-                  onClick={() => setIsModalOpen(false)} 
-                  aria-label="Close modal"
-                  className="p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:text-blue-500 transition-colors"
-                >
-                  <X size={24} />
-                </button>
+                <button onClick={() => setIsCertModalOpen(false)} className="p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:text-blue-500 transition-colors"><X size={24} /></button>
               </div>
               <div className="overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 pr-2">
                 {allCertificates.map((cert, index) => (
-                  <div 
-                    key={index} 
-                    onClick={() => window.open(cert.image, '_blank')}
-                    className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 flex items-center group cursor-pointer hover:border-blue-500/30 transition-all"
-                  >
+                  <div key={index} onClick={() => window.open(cert.image, '_blank')} className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 flex items-center group cursor-pointer hover:border-blue-500/30 transition-all">
                     <div className="flex items-start gap-4">
                       <Award className="text-blue-600 dark:text-blue-500 shrink-0" size={20} />
                       <div className="text-left">
@@ -223,44 +221,60 @@ export default function Home() {
         )}
       </AnimatePresence>
 
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center px-4">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProject(null)} className="absolute inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-xl" />
+            <motion.div initial={{ opacity: 0, scale: 0.95, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 30 }} className="relative w-full max-w-5xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto max-h-[90vh]">
+              <div className="w-full md:w-3/5 bg-slate-100 dark:bg-black relative group min-h-[300px]">
+                <img src={selectedProject.images[currentImgIndex]} alt={selectedProject.title} className="w-full h-full object-contain" />
+                {selectedProject.images.length > 1 && (
+                  <>
+                    <button onClick={(e) => { e.stopPropagation(); prevImg(); }} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100"><ChevronLeft size={24} /></button>
+                    <button onClick={(e) => { e.stopPropagation(); nextImg(); }} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100"><ChevronRight size={24} /></button>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                      {selectedProject.images.map((_: any, i: number) => (
+                        <div key={i} className={`h-1 rounded-full transition-all ${i === currentImgIndex ? "w-8 bg-blue-500" : "w-2 bg-white/30"}`} />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-between overflow-y-auto">
+                <div>
+                  <button onClick={() => setSelectedProject(null)} className="absolute top-6 right-6 p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:text-blue-500 transition-colors"><X size={24} /></button>
+                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4 block">{selectedProject.tag}</span>
+                  <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">{selectedProject.title}</h2>
+                  <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed mb-8">{selectedProject.longDescription}</p>
+                </div>
+                <div className="pt-8 border-t border-slate-100 dark:border-white/5 flex gap-4">
+                  <button className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-black py-4 rounded-2xl font-bold hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 text-sm">Live Demo <ExternalLink size={16} /></button>
+                  <button className="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"><GithubIcon size={20} /></button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       <section id="contact" className="py-24 md:py-32 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div 
-            initial={{ opacity: 1, scale: 1, y: 0 }} 
-            whileInView={{ y: [10, 0] }} 
-            viewport={{ once: true }} 
-            className="p-8 md:p-12 rounded-4xl md:rounded-[3rem] bg-slate-900 dark:bg-neutral-900/80 backdrop-blur-sm border border-slate-800 dark:border-white/10 z-10 shadow-2xl relative overflow-hidden"
-          >
+          <motion.div initial={{ opacity: 1, scale: 1, y: 0 }} whileInView={{ y: [10, 0] }} viewport={{ once: true }} className="p-8 md:p-12 rounded-4xl md:rounded-[3rem] bg-slate-900 dark:bg-neutral-900/80 backdrop-blur-sm border border-slate-800 dark:border-white/10 z-10 shadow-2xl relative overflow-hidden">
             <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tighter leading-tight">
-                Let&apos;s build something <span className="text-blue-400">great</span>.
-              </h2>
-              <p className="text-gray-400 text-sm md:text-lg mb-10">
-                Currently looking for new opportunities. My inbox is always open.
-              </p>
-              
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tighter leading-tight">Let&apos;s build something <span className="text-blue-400">great</span>.</h2>
+              <p className="text-gray-400 text-sm md:text-lg mb-10">Currently looking for new opportunities. My inbox is always open.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <a href="mailto:adrianjoshuajavier@gmail.com" className="w-full sm:w-auto bg-white text-black px-10 py-4 rounded-full font-bold hover:bg-blue-400 transition-all flex items-center justify-center gap-2 shadow-lg">
-                  <Mail size={20} /> Send an Email
-                </a>
-                <button 
-                  onClick={() => { navigator.clipboard.writeText('adrianjoshuajavier@gmail.com'); alert('Email copied!'); }} 
-                  className="text-gray-500 hover:text-white transition-colors text-xs underline underline-offset-8"
-                >
-                  Copy email address
-                </button>
+                <a href="mailto:adrianjoshuajavier@gmail.com" className="w-full sm:w-auto bg-white text-black px-10 py-4 rounded-full font-bold hover:bg-blue-400 transition-all flex items-center justify-center gap-2 shadow-lg"><Mail size={20} /> Send an Email</a>
+                <button onClick={() => { navigator.clipboard.writeText('adrianjoshuajavier@gmail.com'); alert('Email copied!'); }} className="text-gray-500 hover:text-white transition-colors text-xs underline underline-offset-8">Copy email address</button>
               </div>
             </div>
-
             <div className="absolute inset-0 bg-linear-to-b from-blue-600/10 to-transparent pointer-events-none" />
           </motion.div>
         </div>
       </section>
 
       <footer className="py-10 text-center bg-slate-900 dark:bg-black border-t border-slate-800 dark:border-white/5">
-        <p className="text-gray-500 text-[10px] font-mono uppercase tracking-widest">
-          &copy; 2026 • Joshua Javier • All Rights Reserved
-        </p>
+        <p className="text-gray-500 text-[10px] font-mono uppercase tracking-widest">&copy; 2026 • Joshua Javier • All Rights Reserved</p>
       </footer>
     </main>
   );
