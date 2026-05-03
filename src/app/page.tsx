@@ -103,7 +103,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a href="#projects" className="w-full sm:w-auto bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-blue-600 dark:hover:bg-blue-400 transition-all active:scale-95">View My Projects <ChevronRight size={18} /></a>
-            <a href="/my-cv.pdf" download className="w-full sm:w-auto bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-all active:scale-95">Download CV</a>
+            <a href="/JOSHUA JAVIER RESUME.pdf" download className="w-full sm:w-auto bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:bg-slate-200 dark:hover:bg-white/10 transition-all active:scale-95">Download CV</a>
           </div>
           <div className="flex justify-center gap-6 mt-10">
             <a href="https://github.com/joshianjvr/joshjvr" target="_blank" aria-label="Visit Joshua's GitHub Profile" className="text-slate-400 dark:text-white/40 hover:text-blue-500 transition-colors"><GithubIcon size={24} /></a>
