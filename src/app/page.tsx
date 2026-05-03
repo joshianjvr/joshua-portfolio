@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, ChevronRight, Award, X, GraduationCap, Sun, Moon, ChevronLeft, ExternalLink, Clock } from "lucide-react";
+import { Mail, ChevronRight, Award, X, GraduationCap, Sun, Moon, Clock } from "lucide-react";
 
 const GithubIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" /><path d="M9 18c-4.51 2-5-2-7-2" /></svg>
@@ -14,8 +14,6 @@ const LinkedinIcon = ({ size = 20 }: { size?: number }) => (
 
 export default function Home() {
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
@@ -32,8 +30,6 @@ export default function Home() {
       title: "Student Portal System",
       tag: "Capstone • PHP / MySQL",
       description: "Comprehensive management platform for DWCV featuring automated grade tracking and secure enrollment.",
-      longDescription: "Built specifically for Divine Word College of Vigan, this system handles sensitive student data, automated grade computation, and real-time synchronization between departments.",
-      images: ["/projects/portal-1.jpg", "/projects/portal-2.jpg", "/projects/portal-3.jpg"],
       colSpan: "md:col-span-8",
       isDarkAccent: false
     },
@@ -42,8 +38,6 @@ export default function Home() {
       title: "Inventory Tracker",
       tag: "Optimized CRUD",
       description: "Automated stock management with reorder logic and movement history.",
-      longDescription: "A high-performance backend solution for businesses to track inventory levels, generate low-stock alerts, and manage supplier orders.",
-      images: ["/projects/inv-1.jpg", "/projects/inv-2.jpg"],
       colSpan: "md:col-span-4",
       isDarkAccent: false
     },
@@ -52,34 +46,27 @@ export default function Home() {
       title: "Payroll Management",
       tag: "Backend Logic",
       description: "Complex logic for tax deductions, disbursements, and employee salary processing.",
-      longDescription: "An automated payroll engine that calculates government deductions (SSS, Pag-IBIG, PhilHealth) and generates digital payslips.",
-      images: ["/projects/payroll-1.jpg", "/projects/payroll-2.jpg"],
       colSpan: "md:col-span-5",
       isDarkAccent: false
     },
     {
       id: 4,
-      title: "AI Content Orchestrator",
-      tag: "Ongoing Project",
-      description: "Automating video scripting and asset generation for scalable YouTube automation.",
-      longDescription: "Integrating OpenAI and video processing libraries to fully automate the production of educational video content.",
-      images: ["/projects/ai-1.jpg", "/projects/ai-2.jpg"],
+      title: "Clinic Appointment System",
+      tag: "Healthcare • Management",
+      description: "A streamlined booking platform for patients and doctors, featuring real-time scheduling and medical record management.",
       colSpan: "md:col-span-7",
       isDarkAccent: true
     }
   ];
 
   const allCertificates = [
-    { title: "Responsive Web Design Certification", issuer: "freeCodeCamp", date: "Ongoing", image: "/certificates/cert1.jpg", isOngoing: true },
-    { title: "Microsoft Artificial Intelligence Course: Azure AI Fundamentals", issuer: "Microsoft", date: "2025", image: "/certificates/cert2.jpg" },
-    { title: "Setting Up Computer Servers", issuer: "Technical Training", date: "2025", image: "/certificates/cert3.jpg" },
-    { title: "Setting Up Computer Networks", issuer: "Technical Training", date: "2025", image: "/certificates/cert4.jpg" },
-    { title: "Maintaining Computer Systems and Networks", issuer: "Technical Training", date: "2025", image: "/certificates/cert5.jpg" },
-    { title: "Intro to CSS", issuer: "Udemy", date: "2025", image: "/certificates/cert6.jpg" },
+    { title: "Responsive Web Design Certification", issuer: "freeCodeCamp", date: "Ongoing", isOngoing: true },
+    { title: "Microsoft Artificial Intelligence Course: Azure AI Fundamentals", issuer: "Microsoft", date: "2025" },
+    { title: "Setting Up Computer Servers", issuer: "Technical Training", date: "2025" },
+    { title: "Setting Up Computer Networks", issuer: "Technical Training", date: "2025" },
+    { title: "Maintaining Computer Systems and Networks", issuer: "Technical Training", date: "2025" },
+    { title: "Intro to CSS", issuer: "Udemy", date: "2025" },
   ];
-
-  const nextImg = () => setCurrentImgIndex((prev) => (prev + 1) % selectedProject.images.length);
-  const prevImg = () => setCurrentImgIndex((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length);
 
   return (
     <main className="relative min-h-screen bg-white dark:bg-black text-slate-900 dark:text-white transition-colors duration-500 selection:bg-blue-500/30">
@@ -132,7 +119,11 @@ export default function Home() {
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-left">
           {projects.map((project) => (
-            <motion.div key={project.id} whileHover={{ y: -5 }} onClick={() => { setSelectedProject(project); setCurrentImgIndex(0); }} className={`${project.colSpan} group relative overflow-hidden rounded-3xl border p-6 md:p-10 transition-all shadow-sm cursor-pointer ${project.isDarkAccent ? "bg-slate-900 dark:bg-white/5 border-slate-800 dark:border-white/10 shadow-xl" : "bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-blue-500/50"}`}>
+            <motion.div 
+              key={project.id} 
+              whileHover={{ y: -5 }} 
+              className={`${project.colSpan} group relative overflow-hidden rounded-3xl border p-6 md:p-10 transition-all shadow-sm ${project.isDarkAccent ? "bg-slate-900 dark:bg-white/5 border-slate-800 dark:border-white/10 shadow-xl" : "bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-blue-500/50"}`}
+            >
               <div className="relative z-10">
                 <span className={`text-[10px] font-mono px-3 py-1 rounded-full border mb-4 inline-block uppercase tracking-wider ${project.isDarkAccent ? "text-blue-400 border-blue-400/30 bg-blue-400/5" : "text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-400/30 bg-blue-50 dark:bg-blue-400/5"}`}>{project.tag}</span>
                 <h3 className={`text-2xl md:text-3xl font-bold mb-4 ${project.isDarkAccent ? "text-white" : "text-slate-900 dark:text-white"}`}>{project.title}</h3>
@@ -145,7 +136,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. TECHNICAL STACKS SECTION */}
       <section id="stacks" className="py-24 px-6 bg-slate-50 dark:bg-white/[0.02] border-y border-slate-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-12">Technical Stacks</h2>
@@ -157,7 +147,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. OTHER SKILLS SECTION */}
       <section id="other-skills" className="py-24 px-6 bg-white dark:bg-black border-b border-slate-200 dark:border-white/5">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-12">Other Skills</h2>
@@ -176,7 +165,11 @@ export default function Home() {
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {allCertificates.slice(0, 5).map((cert, index) => (
-            <motion.div key={index} whileHover={{ y: -5 }} onClick={() => window.open(cert.image, '_blank')} className="p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-blue-500/30 transition-all group cursor-pointer relative shadow-sm overflow-hidden">
+            <motion.div 
+              key={index} 
+              whileHover={{ y: -5 }} 
+              className="p-8 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-all group relative shadow-sm overflow-hidden"
+            >
               {cert.isOngoing && (
                 <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1 bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full text-[10px] font-bold uppercase tracking-wider">
                   <Clock size={12} className="animate-pulse" /> Ongoing
@@ -205,7 +198,7 @@ export default function Home() {
               </div>
               <div className="overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 pr-2">
                 {allCertificates.map((cert, index) => (
-                  <div key={index} onClick={() => window.open(cert.image, '_blank')} className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 flex items-center group cursor-pointer hover:border-blue-500/30 transition-all">
+                  <div key={index} className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 flex items-center group transition-all">
                     <div className="flex items-start gap-4">
                       <Award className="text-blue-600 dark:text-blue-500 shrink-0" size={20} />
                       <div className="text-left">
@@ -215,42 +208,6 @@ export default function Home() {
                     </div>
                   </div>
                 ))}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-[110] flex items-center justify-center px-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProject(null)} className="absolute inset-0 bg-white/95 dark:bg-black/95 backdrop-blur-xl" />
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 30 }} className="relative w-full max-w-5xl bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto max-h-[90vh]">
-              <div className="w-full md:w-3/5 bg-slate-100 dark:bg-black relative group min-h-[300px]">
-                <img src={selectedProject.images[currentImgIndex]} alt={selectedProject.title} className="w-full h-full object-contain" />
-                {selectedProject.images.length > 1 && (
-                  <>
-                    <button onClick={(e) => { e.stopPropagation(); prevImg(); }} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100"><ChevronLeft size={24} /></button>
-                    <button onClick={(e) => { e.stopPropagation(); nextImg(); }} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all opacity-0 group-hover:opacity-100"><ChevronRight size={24} /></button>
-                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                      {selectedProject.images.map((_: any, i: number) => (
-                        <div key={i} className={`h-1 rounded-full transition-all ${i === currentImgIndex ? "w-8 bg-blue-500" : "w-2 bg-white/30"}`} />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-between overflow-y-auto">
-                <div>
-                  <button onClick={() => setSelectedProject(null)} className="absolute top-6 right-6 p-2 rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-gray-400 hover:text-blue-500 transition-colors"><X size={24} /></button>
-                  <span className="text-[10px] font-mono text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4 block">{selectedProject.tag}</span>
-                  <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">{selectedProject.title}</h2>
-                  <p className="text-slate-500 dark:text-gray-400 text-sm leading-relaxed mb-8">{selectedProject.longDescription}</p>
-                </div>
-                <div className="pt-8 border-t border-slate-100 dark:border-white/5 flex gap-4">
-                  <button className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-black py-4 rounded-2xl font-bold hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 text-sm">Live Demo <ExternalLink size={16} /></button>
-                  <button className="p-4 rounded-2xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"><GithubIcon size={20} /></button>
-                </div>
               </div>
             </motion.div>
           </div>
